@@ -10,11 +10,16 @@ const CategoriesScreen = (props) => {
       <TouchableOpacity
         style={styles.gridItem}
         onPress={() =>
-          props.navigation.navigate({ routeName: "CategoryMeals" })
+          props.navigation.navigate({
+            routeName: "CategoryMeals",
+            params: {
+              category: itemData.item,
+            },
+          })
         }
       >
         <View>
-          <Text>{itemData.item.tittle}</Text>
+          <Text>{itemData.item.title}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -33,9 +38,9 @@ const CategoriesScreen = (props) => {
 CategoriesScreen.navigationOptions = {
   headerTitle: "Meals categaories",
   headerStyle: {
-    backgroundColor: Platform.OS ==='android'? Colors.primaryColor: ''
+    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
   },
-  headerTintColor: Platform.OS ==='android'?'white':Colors.primaryColor
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
 };
 
 const styles = StyleSheet.create({
@@ -49,7 +54,6 @@ const styles = StyleSheet.create({
     margin: 15,
     height: 150,
   },
-
 });
 
 export default CategoriesScreen;

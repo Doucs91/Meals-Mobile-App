@@ -1,17 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import Colors from "../constants/Colors";
 import { CATEGORIES } from "../data/dummy-data";
 
-const renderGridItem = (itemData) => {
-  return (
-    <View style={styles.gridItem}>
-      <Text>{itemData.item.tittle}</Text>
-    </View>
-  );
-};
-
 const CategoriesScreen = (props) => {
+  const renderGridItem = (itemData) => {
+    return (
+      <TouchableOpacity
+        style={styles.gridItem}
+        onPress={() =>
+          props.navigation.navigate({ routeName: "CategoryMeals" })
+        }
+      >
+        <View>
+          <Text>{itemData.item.tittle}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <FlatList
       keyExtractor={(item, index) => item.id}
@@ -20,6 +28,14 @@ const CategoriesScreen = (props) => {
       numColumns={2}
     />
   );
+};
+
+CategoriesScreen.navigationOptions = {
+  headerTitle: "Meals categaories",
+  headerStyle: {
+    backgroundColor: Platform.OS ==='android'? Colors.primaryColor: ''
+  },
+  headerTintColor: Platform.OS ==='android'?'white':Colors.primaryColor
 };
 
 const styles = StyleSheet.create({
@@ -33,6 +49,7 @@ const styles = StyleSheet.create({
     margin: 15,
     height: 150,
   },
+
 });
 
 export default CategoriesScreen;

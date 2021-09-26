@@ -3,14 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import MealsNavigator from "./navigation/MealsNavigator";
+import { enableScreens } from "react-native-screens";
+import useFonts from "./assets/useFonts";
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    "open-sans": require("./assets/fonts/fonts/OpenSans-Regular.ttf"),
-    "opens-sans-bold": require("./assets/fonts/fonts/OpenSans-Bold.ttf"),
-  });
+
+enableScreens();
+const fetchFonts = async () => {
+  await useFonts;
 };
-
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
   if (!fontLoaded) {
@@ -18,13 +18,12 @@ export default function App() {
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setFontLoaded(true)}
-        onError={(err) => console.log(err)}
+        onError={console.warn}
       />
     );
+  } else {
+    return <MealsNavigator />;
   }
-  return (
-    <MealsNavigator/>
-  );
 }
 
 const styles = StyleSheet.create({
